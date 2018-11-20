@@ -5,7 +5,8 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTopic: "people"
+      selectedTopic: "people",
+      searchPlaceholder: "e.g. Chewbacca, Yoda, Boba Fett"
     };
   }
 
@@ -45,7 +46,7 @@ export default class Home extends Component {
         <div>
           <input
             className="searchTextBox"
-            placeholder="e.g. Chewbacca, Yoda, Boba Fett"
+            placeholder={this.state.searchPlaceholder}
           />
         </div>
         <div>
@@ -56,17 +57,33 @@ export default class Home extends Component {
   };
 
   changeSubject = changeEvent => {
-    this.setState({ selectedTopic: changeEvent.target.value });
+    let ph = "";
+    changeEvent.target.value === "people"
+      ? (ph = "e.g. Chewbacca, Yoda, Boba Fett")
+      : (ph = "e.g. Star Wars, Jedi");
+    this.setState({
+      selectedTopic: changeEvent.target.value,
+      searchPlaceholder: ph
+    });
+  };
+
+  resultsContainer = () => {
+    return (
+      <div className="container resultsContainer">
+        <div className="resultsHeading">Results</div>
+        <div className="underliner" />
+      </div>
+    );
   };
 
   render() {
-    console.log(this.state.selectedTopic);
     return (
       <div>
         <div className="header text-center">SWStarter</div>
         <div className="container">
-          <div className="row justify-content-center">
+          <div className="row justify-content-center d-flex flex-nowrap">
             {this.searchContainer()}
+            {this.resultsContainer()}
           </div>
         </div>
       </div>
