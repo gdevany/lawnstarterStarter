@@ -6,7 +6,8 @@ export default class Home extends Component {
     super(props);
     this.state = {
       selectedTopic: "people",
-      searchPlaceholder: "e.g. Chewbacca, Yoda, Boba Fett"
+      searchPlaceholder: "e.g. Chewbacca, Yoda, Boba Fett",
+      searchText: ""
     };
   }
 
@@ -47,10 +48,20 @@ export default class Home extends Component {
           <input
             className="searchTextBox"
             placeholder={this.state.searchPlaceholder}
+            onChange={this.setSearch}
           />
         </div>
         <div>
-          <button className="searchButton searchButton-active">SEARCH</button>
+          <button
+            className={
+              "searchButton " +
+              (this.state.searchText.length > 0
+                ? "searchButton-active"
+                : "searchButton-disabled")
+            }
+          >
+            SEARCH
+          </button>
         </div>
       </div>
     );
@@ -67,6 +78,11 @@ export default class Home extends Component {
     });
   };
 
+  setSearch = e => {
+    e.preventDefault();
+    this.setState({ searchText: e.target.value });
+  };
+
   resultsContainer = () => {
     return (
       <div className="container resultsContainer">
@@ -79,7 +95,6 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <div className="header text-center">SWStarter</div>
         <div className="container">
           <div className="row justify-content-center d-flex flex-nowrap">
             {this.searchContainer()}
