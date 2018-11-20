@@ -29,8 +29,8 @@
 }
 
 .resultsContainer {
-  /* width: 582px; */
-  height: 582px;
+  width: 582px;
+  min-height: 582px;
   border-radius: 4px;
   box-shadow: 0 1px 2px 0 rgba(132, 132, 132, 0.75);
   border: solid 1px var(--white);
@@ -47,6 +47,25 @@
   line-height: normal;
   letter-spacing: normal;
   color: #000000;
+}
+
+.listResults {
+  margin-top: 17px;
+}
+
+.seeDetailsButton {
+  width: 134px;
+  height: 34px;
+  border-radius: 17px;
+  background-color: #0ab463;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+  padding: 8px 20px;
 }
 
 .People {

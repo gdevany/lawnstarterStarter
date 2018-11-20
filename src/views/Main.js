@@ -7,7 +7,8 @@ export default class Home extends Component {
     this.state = {
       selectedTopic: "people",
       searchPlaceholder: "e.g. Chewbacca, Yoda, Boba Fett",
-      searchText: ""
+      searchText: "",
+      searchResults: []
     };
   }
 
@@ -35,9 +36,9 @@ export default class Home extends Component {
               className="form-check-input"
               type="radio"
               name="peopleOrMovies"
-              id="movies"
-              value="movies"
-              checked={this.state.selectedTopic === "movies"}
+              id="films"
+              value="films"
+              checked={this.state.selectedTopic === "films"}
               onChange={this.changeSubject}
             />
             <label className="form-check-label">Movies</label>
@@ -91,7 +92,8 @@ export default class Home extends Component {
       }`
     )
       .then(res => res.json())
-      .then(data => console.log(data.results));
+      // .then(data => console.log(data.results));
+      .then(data => this.setState({ searchResults: data.results }));
   };
 
   resultsContainer = () => {
@@ -100,12 +102,43 @@ export default class Home extends Component {
         <div className="resultsContainer">
           <div className="resultsHeading">Results</div>
           <div className="underliner" />
+          {this.listResults()}
         </div>
       </div>
     );
   };
 
+  listResults = () => {
+    // let listAll;
+    let viewEm;
+    if (this.state.searchResults.length < 1) {
+      return <div>no results</div>;
+    } else {
+      let listAll = this.state.searchResults.map(n => {
+        if (this.state.selectedTopic === "people") {
+          viewEm = (
+            <div>
+              <div className="row listResults" key={n.name}>
+                <div className="my-auto">{n.name}</div>
+                <div className="seeDetailsButton text-center ml-auto">
+                  SEE DETAILS
+                </div>
+              </div>
+              <div className="underliner" />
+            </div>
+          );
+        }
+        if (this.state.selectedTopic === "films") {
+          viewEm = <div key={n.title}>{n.title}</div>;
+        }
+        return viewEm;
+      });
+      return listAll;
+    }
+  };
+
   render() {
+    console.log(this.state.searchResults);
     return (
       <div>
         <div className="container">
