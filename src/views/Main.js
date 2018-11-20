@@ -129,7 +129,17 @@ export default class Home extends Component {
           );
         }
         if (this.state.selectedTopic === "films") {
-          viewEm = <div key={n.title}>{n.title}</div>;
+          viewEm = (
+            <div>
+              <div className="row listResults" key={n.title}>
+                <div className="my-auto">{n.title}</div>
+                <div className="seeDetailsButton text-center ml-auto">
+                  SEE DETAILS
+                </div>
+              </div>
+              <div className="underliner" />
+            </div>
+          );
         }
         return viewEm;
       });
