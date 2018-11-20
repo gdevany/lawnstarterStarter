@@ -59,6 +59,7 @@ export default class Home extends Component {
                 ? "searchButton-active"
                 : "searchButton-disabled")
             }
+            onClick={this.searchIt}
           >
             SEARCH
           </button>
@@ -83,11 +84,23 @@ export default class Home extends Component {
     this.setState({ searchText: e.target.value });
   };
 
+  searchIt = () => {
+    let data = fetch(
+      `https://swapi.co/api/${this.state.selectedTopic}/?search=${
+        this.state.searchText
+      }`
+    )
+      .then(res => res.json())
+      .then(data => console.log(data.results));
+  };
+
   resultsContainer = () => {
     return (
-      <div className="container resultsContainer">
-        <div className="resultsHeading">Results</div>
-        <div className="underliner" />
+      <div className="container">
+        <div className="resultsContainer">
+          <div className="resultsHeading">Results</div>
+          <div className="underliner" />
+        </div>
       </div>
     );
   };
