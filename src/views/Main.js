@@ -4,7 +4,9 @@ import "./main.css";
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selectedTopic: "people"
+    };
   }
 
   //Display the search container
@@ -14,30 +16,29 @@ export default class Home extends Component {
         <div>What are you searching for?</div>
 
         <div>
-          <div class="form-check form-check-inline radioButtons">
+          <div className="form-check form-check-inline radioButtons">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="radio"
               name="peopleOrMovies"
               id="people"
-              value="option1"
-              checked
+              value="people"
+              checked={this.state.selectedTopic === "people"}
+              onChange={this.changeSubject}
             />
-            <label class="form-check-label" for="exampleRadios1">
-              People
-            </label>
+            <label className="form-check-label">People</label>
           </div>
-          <div class="form-check form-check-inline">
+          <div className="form-check form-check-inline">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="radio"
               name="peopleOrMovies"
               id="movies"
-              value="option2"
+              value="movies"
+              checked={this.state.selectedTopic === "movies"}
+              onChange={this.changeSubject}
             />
-            <label class="form-check-label" for="exampleRadios2">
-              Movies
-            </label>
+            <label className="form-check-label">Movies</label>
           </div>
         </div>
         <div />
@@ -54,7 +55,12 @@ export default class Home extends Component {
     );
   };
 
+  changeSubject = changeEvent => {
+    this.setState({ selectedTopic: changeEvent.target.value });
+  };
+
   render() {
+    console.log(this.state.selectedTopic);
     return (
       <div>
         <div className="header text-center">SWStarter</div>
